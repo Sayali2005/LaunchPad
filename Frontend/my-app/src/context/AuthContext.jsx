@@ -28,11 +28,12 @@ export function AuthProvider({ children }) {
     return res;
   };
 
-  const register = async (name, email, password) => {
-    const res = await API.post('/auth/register', { name, email, password });
-    setUser(res.data.user);
-    return res;
-  };
+ const register = async (name, email, password, username) => {
+  const res = await API.post('/auth/register', { name, email, password, username });
+  setUser(res.data.user);
+  return res;
+};
+
 
   const logout = async () => {
     await API.post('/auth/logout');

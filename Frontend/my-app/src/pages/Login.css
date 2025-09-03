@@ -15,6 +15,17 @@
   background: #f3f7fb;        /* light page background */
 }
 
+.signup-note a {
+  color: white;          /* white text */
+  text-decoration: underline; /* optional underline */
+  cursor: pointer;       /* pointer on hover */
+  font-weight: 500;      /* optional, slightly bold */
+}
+
+.signup-note a:hover {
+  color: #ddd;           /* lighter on hover */
+}
+
 /* Card */
 .auth-form {
   width: 100%;

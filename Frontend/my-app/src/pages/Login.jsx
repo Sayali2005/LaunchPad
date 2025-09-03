@@ -40,9 +40,10 @@ export default function Login() {
           />
           <button type="submit">Login</button>
         </form>
-              <p className="signup-note">
-          Not a registered user? &nbsp;<Link to="/register">Sign up</Link>
-        </p>
+          <p className="signup-note">
+            Not a registered user? &nbsp;<Link to="/register">Sign up</Link>
+          </p>
+
       </div>
     </div>
   );
