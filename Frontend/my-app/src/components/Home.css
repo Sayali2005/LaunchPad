@@ -1,0 +1,132 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: #141e30;
+  color: white;
+  text-align: center;
+  padding: 8rem;
+}
+
+.home-content {
+  background: black;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  width: 100%;
+  margin-bottom: 10rem; /* spacing before About section */
+}
+
+.app-icon {
+  font-size: 60px;
+  color: #ffcc00;
+  margin-bottom: 15px;
+}
+
+.app-name {
+  font-size: 2.5rem;
+  margin: 10px 0;
+}
+
+.tagline {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  font-style: italic;
+  color: #ddd;
+}
+
+.task-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.task-btn {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #ffcc00;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.task-btn:hover {
+  background: #ffaa00;
+  transform: translateY(-2px);
+}
+
+.task-btn.delete {
+  background: #ff4444;
+  color: white;
+}
+.task-btn.delete:hover { background: #cc0000; }
+
+.task-btn.edit {
+  background: #4caf50;
+  color: white;
+}
+.task-btn.edit:hover { background: #388e3c; }
+
+.task-btn.view {
+  background: #2196f3;
+  color: white;
+}
+.task-btn.view:hover { background: #1976d2; }
+
+/* 📱 Mobile screens */
+@media (max-width: 600px) {
+  .home-content {
+    padding: 20px;
+  }
+
+  .app-icon {
+    font-size: 45px;
+  }
+
+  .app-name {
+    font-size: 1.8rem;
+  }
+
+  .tagline {
+    font-size: 1rem;
+  }
+
+  .task-buttons {
+    flex-direction: column;
+  }
+
+  .task-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* 📲 Tablet screens */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .home-content {
+    padding: 30px;
+  }
+
+  .app-name {
+    font-size: 2rem;
+  }
+
+  .task-btn {
+    padding: 10px 15px;
+  }
+}
+
+/* 💻 Large screens */
+@media (min-width: 1200px) {
+  .home-content {
+    max-width: 700px;
+  }
+}
