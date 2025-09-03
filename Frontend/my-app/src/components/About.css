@@ -1,16 +1,18 @@
-/* about.css */
-
 .about-container {
   min-height: 100vh;
-  background:  #141e30;
+  background: #141e30;
   color: #f0f4f8;
-  padding: 2rem;
+  padding: 2rem 1rem; /* reduced for mobile */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
 }
-h1,p{
-    display: flex;
-    justify-content: center;
+
+h1, p {
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
+
 .app-name {
   font-size: 3rem;
   font-weight: 800;
@@ -32,6 +34,7 @@ h1,p{
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
 }
 
 .about-content h2 {
@@ -70,4 +73,56 @@ h1,p{
 .features-list li:hover {
   transform: translateX(5px);
   background: rgba(77, 166, 255, 0.2);
+}
+
+/* 📱 Mobile screens */
+@media (max-width: 600px) {
+  .app-name {
+    font-size: 2rem;
+  }
+
+  .tagline {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-content {
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .about-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .about-content p, .features-list li {
+    font-size: 0.9rem;
+  }
+
+  .features-list li {
+    padding: 0.6rem 0.8rem;
+  }
+}
+
+/* 📲 Tablet screens */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .app-name {
+    font-size: 2.5rem;
+  }
+
+  .tagline {
+    font-size: 1.1rem;
+  }
+
+  .about-content {
+    padding: 2rem;
+  }
+
+  .about-content h2 {
+    font-size: 1.8rem;
+  }
+
+  .about-content p, .features-list li {
+    font-size: 1rem;
+  }
 }

@@ -1,3 +1,4 @@
+/* Home Container */
 .home-container {
   display: flex;
   flex-direction: column;
@@ -6,30 +7,36 @@
   background: #141e30;
   color: white;
   text-align: center;
-  padding: 8rem;
+  padding: 4rem 1rem; /* reduce padding for mobile */
 }
 
+/* Home Content Card */
 .home-content {
-  background: black;
+  background: #000;
   padding: 40px;
   border-radius: 15px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
   max-width: 600px;
   width: 100%;
-  margin-bottom: 10rem; /* spacing before About section */
+  margin-bottom: 5rem; /* spacing before About section */
+  transition: all 0.3s ease;
 }
 
+/* App Icon */
 .app-icon {
   font-size: 60px;
   color: #ffcc00;
   margin-bottom: 15px;
 }
 
+/* App Name */
 .app-name {
   font-size: 2.5rem;
   margin: 10px 0;
+  font-weight: bold;
 }
 
+/* Tagline */
 .tagline {
   font-size: 1.2rem;
   margin-bottom: 30px;
@@ -37,6 +44,7 @@
   color: #ddd;
 }
 
+/* Task Buttons Container */
 .task-buttons {
   display: flex;
   justify-content: center;
@@ -44,6 +52,7 @@
   gap: 15px;
 }
 
+/* Task Buttons */
 .task-btn {
   padding: 12px 18px;
   border: none;
@@ -56,6 +65,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  font-size: 1rem;
 }
 
 .task-btn:hover {
@@ -63,6 +73,7 @@
   transform: translateY(-2px);
 }
 
+/* Specific Button Colors */
 .task-btn.delete {
   background: #ff4444;
   color: white;
@@ -81,10 +92,34 @@
 }
 .task-btn.view:hover { background: #1976d2; }
 
+/* About Section */
+.about-container {
+  max-width: 800px;
+  width: 90%;
+  margin: 0 auto 4rem auto;
+  background: #111;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.about-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #ffcc00;
+}
+
+.about-container p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #ccc;
+}
+
 /* 📱 Mobile screens */
 @media (max-width: 600px) {
   .home-content {
     padding: 20px;
+    margin-bottom: 3rem;
   }
 
   .app-icon {
@@ -97,15 +132,32 @@
 
   .tagline {
     font-size: 1rem;
+    margin-bottom: 20px;
   }
 
   .task-buttons {
     flex-direction: column;
+    gap: 10px;
   }
 
   .task-btn {
     width: 100%;
     justify-content: center;
+    font-size: 0.9rem;
+    padding: 10px 0;
+  }
+
+  .about-container {
+    padding: 20px;
+    margin-bottom: 2rem;
+  }
+
+  .about-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .about-container p {
+    font-size: 0.95rem;
   }
 }
 
@@ -122,11 +174,20 @@
   .task-btn {
     padding: 10px 15px;
   }
+
+  .about-container {
+    padding: 25px;
+  }
 }
 
 /* 💻 Large screens */
 @media (min-width: 1200px) {
   .home-content {
     max-width: 700px;
+  }
+
+  .about-container {
+    max-width: 900px;
+    padding: 35px;
   }
 }
