@@ -9,9 +9,9 @@ const JWT_SECRET = process.env.JWT_SECRET;
 // Cookie options
 const COOKIE_OPTIONS = {
   httpOnly: true,
-  secure: false,
-  sameSite: 'lax',
-  maxAge: 1000*60*60*24,
+  secure: process.env.NODE_ENV === 'production', // HTTPS required in production
+  sameSite: 'None', // required for cross-origin requests
+  maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
 };
 
 // Register
@@ -44,9 +44,11 @@ router.post('/register', async (req, res) => {
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '7d' });
 
     // Send cookie
-    res.cookie('token', token, COOKIE_OPTIONS).status(201).json({
-      user: { id: user._id, name: user.name, email: user.email, username: user.username }
-    });
+     res.cookie('token', token, COOKIE_OPTIONS)
+       .status(201)
+       .json({
+         user: { id: user._id, name: user.name, email: user.email, username: user.username }
+       });
 
   } catch (err) {
     console.error(err);
@@ -66,25 +68,23 @@ router.post('/login', async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
-    res.cookie('token', token, {
-      httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
-      maxAge: 1000*60*60*24*7
-    }).json({
-      user: { id: user._id, name: user.name, email: user.email }
-    });
+     res.cookie('token', token, COOKIE_OPTIONS)
+       .json({
+         user: { id: user._id, name: user.name, email: user.email, username: user.username }
+       });
   } catch(err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
   }
 });
 
-
 // Logout
 router.post('/logout', (req, res) => {
-  res.clearCookie('token', COOKIE_OPTIONS).json({ message: 'Logged out' });
+  // ✅ Apply COOKIE_OPTIONS here as well
+  res.clearCookie('token', COOKIE_OPTIONS)
+     .json({ message: 'Logged out' });
 });
+
 
 // Get current user
 router.get('/me', async (req, res) => {
