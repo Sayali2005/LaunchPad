@@ -4,6 +4,7 @@ import axios from "axios";
 import "./Dashboard.css";
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import API from "../services/api"; // make sure path is correct
 
 export default function Dashboard() {
   const [tasks, setTasks] = useState([]);
@@ -11,44 +12,33 @@ export default function Dashboard() {
 
   // Fetch tasks from backend
   const fetchTasks = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/api/tasks", {
-        withCredentials: true, // send cookies with request
-      });
-      setTasks(res.data.tasks); // <-- note .tasks
-    } catch (err) {
-      console.error("Error fetching tasks:", err);
-    }
-  };
+  try {
+    const res = await API.get("/tasks"); // automatically uses deployed backend
+    setTasks(res.data.tasks); // <-- same as before
+  } catch (err) {
+    console.error("Error fetching tasks:", err);
+  }
+};
 
-  useEffect(() => {
-    fetchTasks();
-  }, []);
+
+useEffect(() => {
+  fetchTasks();
+}, []);
+
 
   // Delete handler
-  const handleDelete = async (id) => {
-    try {
-      const res = await fetch(`http://localhost:5000/api/tasks/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${localStorage.getItem("token")}`, // if your API uses tokens
-        },
-        credentials: "include", // send cookies if using cookie-based auth
-      });
-
-      const data = await res.json();
-      if (res.ok) {
-        console.log("Deleted:", data);
-        alert("✅ Task Deleted successfully!");
-        fetchTasks(); // refresh after delete
-      } else {
-        alert(data.message);
-      }
-    } catch (err) {
-      console.error("Delete error:", err);
+ const handleDelete = async (id) => {
+  try {
+    const res = await API.delete(`/tasks/${id}`);
+    if (res.status === 200) {
+      alert("✅ Task deleted successfully!");
+      fetchTasks(); // refresh list
     }
-  };
+  } catch (err) {
+    console.error("Delete error:", err);
+    alert("❌ Failed to delete task. Please try again.");
+  }
+};
 
   return (
     <div className="dashboard">

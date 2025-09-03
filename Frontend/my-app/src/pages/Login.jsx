@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const { login } = useContext(AuthContext);
@@ -39,8 +40,8 @@ export default function Login() {
           />
           <button type="submit">Login</button>
         </form>
-      <p className="signup-note">
-        Not a registered user? &nbsp;<a href="/register" style={{ all: 'unset', cursor: 'pointer', color: 'white', textDecoration: 'underline' }}> Sign up</a>
+              <p className="signup-note">
+          Not a registered user? &nbsp;<Link to="/register">Sign up</Link>
         </p>
       </div>
     </div>

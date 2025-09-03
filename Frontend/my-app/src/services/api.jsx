@@ -1,12 +1,11 @@
-// services/api.js
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL, // e.g., http://localhost:5000/api
+  baseURL: import.meta.env.VITE_API_URL, // points to deployed backend in production
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true, // if using cookies
+  withCredentials: true, // needed if backend uses cookies
 });
 
 export default API;

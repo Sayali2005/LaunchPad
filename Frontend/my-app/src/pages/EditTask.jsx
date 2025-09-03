@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./EditTask.css";
+import API from "../services/api"; // adjust path if needed
+
 
 export default function EditTask() {
   const { id } = useParams();
@@ -9,54 +11,37 @@ export default function EditTask() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    const fetchTask = async () => {
-      try {
-        const res = await fetch(`http://localhost:5000/api/tasks/${id}`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-        });
-
-        if (!res.ok) {
-          if (res.status === 401) throw new Error("❌ Not authenticated");
-          if (res.status === 404) throw new Error("❌ Task not found");
-          throw new Error("❌ Failed to load task");
-        }
-
-        const data = await res.json();
-        setTask(data.task);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-      }
-    };
-    fetchTask();
-  }, [id]);
+ useEffect(() => {
+  const fetchTask = async () => {
+    try {
+      const res = await API.get(`/tasks/${id}`);
+      setTask(res.data.task);
+      setLoading(false);
+    } catch (err) {
+      if (err.response?.status === 401) setError("❌ Not authenticated");
+      else if (err.response?.status === 404) setError("❌ Task not found");
+      else setError("❌ Failed to load task");
+      setLoading(false);
+    }
+  };
+  fetchTask();
+}, [id]);
 
   const handleChange = (e) => {
     setTask({ ...task, [e.target.name]: e.target.value });
   };
 
   const handleUpdate = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch(`http://localhost:5000/api/tasks/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(task),
-      });
-
-      if (!res.ok) throw new Error("❌ Failed to update task");
-
-      alert("✅ Task updated successfully!");
-      navigate("/dashboard");
-    } catch (err) {
-      alert(err.message);
-    }
-  };
+  e.preventDefault();
+  try {
+    await API.put(`/tasks/${id}`, task);
+    alert("✅ Task updated successfully!");
+    navigate("/dashboard");
+  } catch (err) {
+    const msg = err.response?.data?.message || "❌ Failed to update task";
+    alert(msg);
+  }
+};
 
   if (loading) return <p className="loading-text">Loading task...</p>;
   if (error) return <p className="error-text">{error}</p>;

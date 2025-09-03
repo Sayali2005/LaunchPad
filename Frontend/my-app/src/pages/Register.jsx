@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../services/api";
 import "./Register.css";
+import { Link } from "react-router-dom";
 
 function Register() {
   const [name, setName] = useState("");
@@ -57,8 +58,9 @@ function Register() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Register</button>
+      
         <p className="signup-note">
-        Already registered? &nbsp;<a href="/login" style={{ all: 'unset', cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}> Login</a>
+          Already registered? &nbsp;<Link to="/login">Login</Link>
         </p>
       </form>
     </div>

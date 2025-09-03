@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./AddTask.css";
+import API from "../services/api"; // make sure path is correct
+
 
 export default function AddTask({ onTaskAdded }) {
   const [task, setTask] = useState({
@@ -21,34 +23,27 @@ export default function AddTask({ onTaskAdded }) {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post(
-        "http://localhost:5000/api/tasks",
-        {
-          title: task.title,
-          description: task.description,
-          priority: task.priority,
-          dueDate: task.dueDate,
-        },
-        { withCredentials: true }
-      );
+  e.preventDefault();
+  try {
+    const res = await API.post("/tasks", {
+      title: task.title,
+      description: task.description,
+      priority: task.priority,
+      dueDate: task.dueDate,
+    });
 
-      if (onTaskAdded) onTaskAdded(res.data);
+    if (onTaskAdded) onTaskAdded(res.data);
 
-      // ✅ Show success message
-      alert("✅ Task added successfully!");
+    alert("✅ Task added successfully!");
+    navigate("/dashboard");
 
-      // ✅ Redirect to dashboard
-      navigate("/dashboard");
+    setTask({ title: "", description: "", priority: "low", dueDate: "" });
+  } catch (err) {
+    console.error("Error adding task:", err);
+    alert("❌ Failed to add task. Please try again.");
+  }
+};
 
-      // Clear form
-      setTask({ title: "", description: "", priority: "low", dueDate: "" });
-    } catch (err) {
-      console.error("Error adding task:", err);
-      alert("❌ Failed to add task. Please try again.");
-    }
-  };
 
   return (
     <form onSubmit={handleSubmit} className="task-form">
